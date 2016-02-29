@@ -26,6 +26,6 @@
 (defn add
   "smart multi number addition"
   [initial & leftover] 
-  (reduce together initial leftover))
+  (reduce join initial leftover))
 (join 1 2)
 (add 5 6 7 8 8)
