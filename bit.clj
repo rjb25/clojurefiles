@@ -4,6 +4,7 @@
   (:require [clojure.data.json :as json]))
 
 (defn bit-balance 
+  "Function that returns bit balance in USD"
   []
 
   (defn api-request [method path body]
