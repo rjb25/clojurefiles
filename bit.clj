@@ -7,18 +7,16 @@
 (defn bit-balance 
   "Function that returns bit balance in USD"
   []
-  (defn api-request [method path body]
+  (defn api-request [method path]
     (:body
      (client/request
       {:method method
-       :url (str "https://block.io/api/v2" path)
-       :content-type "text/plain"
-       :body body})))
+       :url (str "https://block.io/api/v2" path)})))
 
   ;;Definition names describe what is done here
-  (def json-balance (api-request :get "/get_balance/?api_key=*MY-API-KEY*&label=default" ""))
+  (def json-balance (api-request :get "/get_balance/?api_key=*MY-API-KEY*&label=default"))
   (def balance (Double/parseDouble (:available_balance (:data (json/read-str json-balance :key-fn keyword)))))
-  (def json-base-prices (api-request :get "/get_current_price/?api_key=*MY-API-KEY*&price_base=USD" ""))
+  (def json-base-prices (api-request :get "/get_current_price/?api_key=*MY-API-KEY*&price_base=USD"))
   (def base-prices (map :price (:prices (:data (json/read-str json-base-prices :key-fn keyword)))))
   (def amount-base-prices (count base-prices))
   (def sum-base-prices (apply + (map #(Double/parseDouble %) (into [] base-prices))))
