@@ -1,3 +1,4 @@
+;;Replicates the + function using the inc function.
 (ns handydandy.core
   (:gen-class))
 
@@ -9,6 +10,7 @@
   (if (> times 0)
     (do (recur (dec times) (inc total)))
     total)))
+(join 1 3);;=> 4
 
 (defn add
   "dumb multi number addition"
@@ -22,10 +24,10 @@
        (first remaining) (rest remaining)))))
   ([initial]
   initial))
+(add 1 3 5);;=> 9
 
 (defn add
   "smart multi number addition"
   [initial & leftover] 
   (reduce join initial leftover))
-(join 1 2)
-(add 5 6 7 8 8)
+(add 1 3 5);;=> 9

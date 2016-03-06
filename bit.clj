@@ -1,3 +1,4 @@
+;;This program is for calculating your block.io bit balance in USD
 (ns handydandy.bit
   (:gen-class)
   (:require [clj-http.client :as client])
@@ -6,7 +7,6 @@
 (defn bit-balance 
   "Function that returns bit balance in USD"
   []
-
   (defn api-request [method path body]
     (:body
      (client/request
@@ -15,6 +15,7 @@
        :content-type "text/plain"
        :body body})))
 
+  ;;Definition names describe what is done here
   (def json-balance (api-request :get "/get_balance/?api_key=*MY-API-KEY*&label=default" ""))
   (def balance (Double/parseDouble (:available_balance (:data (json/read-str json-balance :key-fn keyword)))))
   (def json-base-prices (api-request :get "/get_current_price/?api_key=*MY-API-KEY*&price_base=USD" ""))
